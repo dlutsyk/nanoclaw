@@ -16,7 +16,12 @@ function loadAllowedUsers(): Set<number> | null {
   const env = readEnvFile(['ALLOWED_TELEGRAM_USERS']);
   const raw = env.ALLOWED_TELEGRAM_USERS;
   if (!raw) return null;
-  return new Set(raw.split(',').map((id) => Number(id.trim())).filter(Boolean));
+  return new Set(
+    raw
+      .split(',')
+      .map((id) => Number(id.trim()))
+      .filter(Boolean),
+  );
 }
 
 export interface TelegramChannelOpts {
@@ -93,7 +98,8 @@ export class TelegramChannel implements Channel {
     const allowedUsers = loadAllowedUsers();
 
     this.bot.on('message:text', async (ctx) => {
-      if (allowedUsers && ctx.from?.id && !allowedUsers.has(ctx.from.id)) return;
+      if (allowedUsers && ctx.from?.id && !allowedUsers.has(ctx.from.id))
+        return;
       if (ctx.message.text.startsWith('/')) {
         const cmd = ctx.message.text.slice(1).split(/[\s@]/)[0].toLowerCase();
         if (TELEGRAM_BOT_COMMANDS.has(cmd)) return;
@@ -176,7 +182,8 @@ export class TelegramChannel implements Channel {
 
     // Handle non-text messages with placeholders so the agent knows something was sent
     const storeNonText = (ctx: any, placeholder: string) => {
-      if (allowedUsers && ctx.from?.id && !allowedUsers.has(ctx.from.id)) return;
+      if (allowedUsers && ctx.from?.id && !allowedUsers.has(ctx.from.id))
+        return;
       const chatJid = `tg:${ctx.chat.id}`;
       const group = this.opts.registeredGroups()[chatJid];
       if (!group) return;

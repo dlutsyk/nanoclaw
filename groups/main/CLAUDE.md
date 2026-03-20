@@ -55,6 +55,26 @@ Keep messages clean and readable for WhatsApp.
 
 ---
 
+## Gmail Integration
+
+You have Gmail tools available (`mcp__gmail__*`) to read, search, send, and draft emails.
+
+### On-demand queries
+When the user asks about emails (e.g., "search emails from X", "read my latest emails", "list Gmail labels"), use the appropriate Gmail MCP tool directly.
+
+### Scheduled email checks
+When running as a scheduled task to check for new emails:
+1. Search for unread primary emails: `mcp__gmail__search` with query `is:unread category:primary`
+2. Read the `last_gmail_check` timestamp below — only report emails newer than that
+3. For each new email, summarize: sender, subject, and a 1-2 sentence preview
+4. Update the `last_gmail_check` timestamp after checking
+5. If there are no new emails, produce no output (stay silent)
+
+### Gmail State
+- `last_gmail_check`: 2026-03-20T19:00:00Z
+
+---
+
 ## Admin Context
 
 This is the **main channel**, which has elevated privileges.
