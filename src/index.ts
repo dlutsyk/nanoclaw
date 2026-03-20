@@ -29,6 +29,7 @@ import {
 import {
   getAllChats,
   getAllRegisteredGroups,
+  clearSession,
   getAllSessions,
   getAllTasks,
   getMessagesSince,
@@ -332,6 +333,15 @@ async function runAgent(
     }
 
     if (output.status === 'error') {
+      // If the session was not found, clear it so next attempt starts fresh
+      if (output.error?.includes('No conversation found with session ID')) {
+        logger.warn(
+          { group: group.name },
+          'Stale session detected, clearing for fresh start',
+        );
+        delete sessions[group.folder];
+        clearSession(group.folder);
+      }
       logger.error(
         { group: group.name, error: output.error },
         'Container agent error',
