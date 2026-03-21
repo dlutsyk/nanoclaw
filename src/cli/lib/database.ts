@@ -127,7 +127,9 @@ export function deleteTask(id: string): number {
 
 export function getSessions(): SessionRow[] {
   return getDb()
-    .prepare('SELECT group_folder, session_id FROM sessions ORDER BY group_folder')
+    .prepare(
+      'SELECT group_folder, session_id FROM sessions ORDER BY group_folder',
+    )
     .all() as SessionRow[];
 }
 

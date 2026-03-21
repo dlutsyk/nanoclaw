@@ -11,7 +11,11 @@ export async function typescript(): Promise<void> {
   const s = spinner();
   s.start('Building TypeScript...');
   try {
-    execSync('npm run build', { cwd: PROJECT_ROOT, stdio: 'pipe', timeout: 60000 });
+    execSync('npm run build', {
+      cwd: PROJECT_ROOT,
+      stdio: 'pipe',
+      timeout: 60000,
+    });
     s.stop(pc.green('TypeScript build complete'));
   } catch (e) {
     s.stop(pc.red('Build failed'));
@@ -24,7 +28,11 @@ export async function typescript(): Promise<void> {
 export async function container(): Promise<void> {
   console.log('  Building container image...\n');
   try {
-    execSync('./container/build.sh', { cwd: PROJECT_ROOT, stdio: 'inherit', timeout: 300000 });
+    execSync('./container/build.sh', {
+      cwd: PROJECT_ROOT,
+      stdio: 'inherit',
+      timeout: 300000,
+    });
     console.log(pc.green('\n  Container build complete'));
   } catch {
     console.log(pc.red('\n  Container build failed'));

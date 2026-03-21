@@ -1,4 +1,9 @@
-import { execSync, execFileSync, spawn, type ChildProcess } from 'child_process';
+import {
+  execSync,
+  execFileSync,
+  spawn,
+  type ChildProcess,
+} from 'child_process';
 
 function exec(cmd: string): string {
   try {
@@ -28,7 +33,9 @@ export function isServiceActive(): boolean {
 }
 
 export function getServiceUptime(): string {
-  return exec('sudo systemctl show nanoclaw --property=ActiveEnterTimestamp --value');
+  return exec(
+    'sudo systemctl show nanoclaw --property=ActiveEnterTimestamp --value',
+  );
 }
 
 export function startService(): boolean {

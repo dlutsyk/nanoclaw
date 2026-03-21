@@ -55,9 +55,7 @@ export function run(): void {
       .filter((d) => d.isDirectory());
     for (const g of groups) {
       const running = sys.isContainerRunning(g.name);
-      const status = running
-        ? pc.green('running')
-        : pc.dim('idle');
+      const status = running ? pc.green('running') : pc.dim('idle');
       console.log(`    ${g.name}  [${status}]`);
     }
   }

@@ -34,9 +34,7 @@ export function list(status?: string): void {
             ? `every ${t.schedule_value}`
             : t.schedule_value;
 
-      const nextRun = t.next_run
-        ? new Date(t.next_run).toLocaleString()
-        : '';
+      const nextRun = t.next_run ? new Date(t.next_run).toLocaleString() : '';
 
       console.log(`    ${statusColor(`[${t.status}]`)} ${pc.bold(schedule)}`);
       console.log(`      ${pc.dim(`next: ${nextRun}`)}`);

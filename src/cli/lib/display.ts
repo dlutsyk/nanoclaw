@@ -32,23 +32,16 @@ export function section(title: string): void {
   console.log('');
 }
 
-export function table(
-  headers: string[],
-  rows: string[][],
-  indent = 4,
-): void {
+export function table(headers: string[], rows: string[][], indent = 4): void {
   const colWidths = headers.map((h, i) =>
     Math.max(h.length, ...rows.map((r) => (r[i] || '').length)),
   );
   const pad = ' '.repeat(indent);
 
   console.log(
-    pad +
-      headers.map((h, i) => pc.dim(h.padEnd(colWidths[i]))).join('  '),
+    pad + headers.map((h, i) => pc.dim(h.padEnd(colWidths[i]))).join('  '),
   );
-  console.log(
-    pad + colWidths.map((w) => pc.dim('─'.repeat(w))).join('  '),
-  );
+  console.log(pad + colWidths.map((w) => pc.dim('─'.repeat(w))).join('  '));
 
   for (const row of rows) {
     console.log(

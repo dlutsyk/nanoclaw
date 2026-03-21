@@ -5,10 +5,7 @@ import { closeDb } from './lib/database.js';
 
 const program = new Command();
 
-program
-  .name('nclaw')
-  .description('NanoClaw management CLI')
-  .version('1.0.0');
+program.name('nclaw').description('NanoClaw management CLI').version('1.0.0');
 
 // ── status ──
 program
@@ -108,9 +105,7 @@ containersCmd
   });
 
 // ── groups ──
-const groupsCmd = program
-  .command('groups')
-  .description('View group configs');
+const groupsCmd = program.command('groups').description('View group configs');
 
 groupsCmd
   .command('list')
@@ -130,9 +125,7 @@ groupsCmd
   });
 
 // ── tasks ──
-const tasksCmd = program
-  .command('tasks')
-  .description('Manage scheduled tasks');
+const tasksCmd = program.command('tasks').description('Manage scheduled tasks');
 
 tasksCmd
   .command('list')
@@ -207,9 +200,7 @@ buildCmd
   });
 
 // ── db ──
-const dbCommand = program
-  .command('db')
-  .description('Query the database');
+const dbCommand = program.command('db').description('Query the database');
 
 dbCommand
   .command('groups')
