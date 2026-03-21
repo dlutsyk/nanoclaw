@@ -165,8 +165,11 @@ function buildVolumeMounts(
   });
 
   // Gmail credentials directory (for Gmail MCP inside the container)
+  // Per-group override: ~/.gmail-mcp-{folder} takes priority over global ~/.gmail-mcp
   const homeDir = os.homedir();
-  const gmailDir = path.join(homeDir, '.gmail-mcp');
+  const gmailDirPerGroup = path.join(homeDir, `.gmail-mcp-${group.folder}`);
+  const gmailDirGlobal = path.join(homeDir, '.gmail-mcp');
+  const gmailDir = fs.existsSync(gmailDirPerGroup) ? gmailDirPerGroup : gmailDirGlobal;
   if (fs.existsSync(gmailDir)) {
     mounts.push({
       hostPath: gmailDir,
@@ -176,7 +179,10 @@ function buildVolumeMounts(
   }
 
   // Google Calendar credentials directory (for Calendar MCP inside the container)
-  const calendarDir = path.join(homeDir, '.calendar-mcp');
+  // Per-group override: ~/.calendar-mcp-{folder} takes priority over global ~/.calendar-mcp
+  const calendarDirPerGroup = path.join(homeDir, `.calendar-mcp-${group.folder}`);
+  const calendarDirGlobal = path.join(homeDir, '.calendar-mcp');
+  const calendarDir = fs.existsSync(calendarDirPerGroup) ? calendarDirPerGroup : calendarDirGlobal;
   if (fs.existsSync(calendarDir)) {
     mounts.push({
       hostPath: calendarDir,
